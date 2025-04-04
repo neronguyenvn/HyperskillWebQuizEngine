@@ -11,8 +11,5 @@ summary: "<p>In the Internet, you can often find sites where you need to answer 
 programming_language: Kotlin
 content:
   - Web Quiz Engine (Kotlin)
-additional_files:
-  - name: build.gradle
-  - name: settings.gradle
 mode: Study
 yaml_version: 2
