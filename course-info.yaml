@@ -1,0 +1,18 @@
+type: hyperskill
+title: Web Quiz Engine (Kotlin)
+language: English
+summary: "<p>In the Internet, you can often find sites where you need to answer some\
+  \ questions. It can be educational sites, sites with psychological tests, job search\
+  \ services, or just entertaining sites like web quests. The common thing for them\
+  \ is the ability to answer questions (or quizzes) and then see some results. In\
+  \ this project, you will develop a multi-users web service for creating and solving\
+  \ quizzes.</p><br/><br/>Learn more at <a href=\"https://hyperskill.org/projects/316?utm_source=ide&utm_medium=ide&utm_campaign=ide&utm_content=project-card\"\
+  >https://hyperskill.org/projects/316</a>"
+programming_language: Kotlin
+content:
+  - Web Quiz Engine (Kotlin)
+additional_files:
+  - name: build.gradle
+  - name: settings.gradle
+mode: Study
+yaml_version: 2
