@@ -12,6 +12,27 @@ files:
   - name: test/WebQuizEngineTest.java
     visible: false
     learner_created: false
+  - name: src/engine/model/Quiz.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/controller/QuizController.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/controller/model/Feedback.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/service/QuizService.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/controller/model/CreateQuizRequest.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/controller/model/AnswerQuizRequest.kt
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/24907#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Sun, 06 Apr 2025 05:22:06 UTC"
+record: 3

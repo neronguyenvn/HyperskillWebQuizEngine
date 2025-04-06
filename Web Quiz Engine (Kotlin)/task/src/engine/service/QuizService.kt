@@ -23,4 +23,8 @@ class QuizService {
     fun getQuizById(id: Long): Quiz? {
         return quizzes.find { it.id == id }
     }
+
+    fun answerQuiz(answer: List<Int>, quiz: Quiz): Boolean {
+        return quiz.answer == answer
+    }
 }

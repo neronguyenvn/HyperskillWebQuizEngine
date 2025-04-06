@@ -1,0 +1,26 @@
+package engine.controller.model
+
+import engine.model.Quiz
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Size
+
+data class CreateQuizRequest(
+
+    @NotBlank
+    val title: String,
+
+    @NotBlank
+    val text: String,
+
+    @Size(min = 2)
+    val options: List<String>,
+
+    val answer: List<Int> = emptyList(),
+)
+
+fun CreateQuizRequest.asBusinessModel() = Quiz(
+    title = title,
+    text = text,
+    options = options,
+    answer = answer
+)
