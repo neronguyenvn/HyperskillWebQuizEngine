@@ -1,27 +1,24 @@
 package engine.service
 
 import engine.model.Quiz
+import engine.repository.QuizRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import java.util.concurrent.atomic.AtomicLong
 
 @Service
-class QuizService {
-
-    private val quizzes = mutableListOf<Quiz>()
-    private val currentId = AtomicLong(0)
+class QuizService(private val repository: QuizRepository) {
 
     fun createQuiz(quiz: Quiz): Quiz {
-        val createdQuiz = quiz.copy(id = currentId.getAndIncrement())
-        quizzes.add(createdQuiz)
+        val createdQuiz = repository.save(quiz)
         return createdQuiz
     }
 
     fun getAllQuizzes(): List<Quiz> {
-        return quizzes
+        return repository.findAll()
     }
 
     fun getQuizById(id: Long): Quiz? {
-        return quizzes.find { it.id == id }
+        return repository.findByIdOrNull(id)
     }
 
     fun answerQuiz(answer: List<Int>, quiz: Quiz): Boolean {

@@ -12,14 +12,22 @@ import com.google.gson.JsonObject;
 
 import org.hyperskill.hstest.dynamic.input.DynamicTesting;
 import org.hyperskill.hstest.dynamic.input.DynamicTestingMethod;
+import org.hyperskill.hstest.exception.outcomes.UnexpectedError;
 import org.hyperskill.hstest.exception.outcomes.WrongAnswer;
 import org.hyperskill.hstest.mocks.web.request.HttpRequest;
 import org.hyperskill.hstest.mocks.web.response.HttpResponse;
 import org.hyperskill.hstest.stage.SpringTest;
 import org.hyperskill.hstest.testcase.CheckResult;
-import org.hyperskill.hstest.testing.expect.json.builder.JsonStringBuilder;
 
 public class WebQuizEngineTest extends SpringTest {
+    private static final String quiz1 =
+            "{\n" +
+                    "  \"title\": \"The Java Logo\", \n" +
+                    "  \"text\": \"What is depicted on the Java logo?\",\n" +
+                    "  \"options\": [\"Robot\",\"Tea leaf\",\"Cup of coffee\",\"Bug\"],\n" +
+                    "  \"answer\": [2]\n" +
+                    "}";
+
     static void checkStatusCode(HttpResponse resp, int status) {
         if (resp.getStatusCode() != status) {
             throw new WrongAnswer(
@@ -31,15 +39,6 @@ public class WebQuizEngineTest extends SpringTest {
             );
         }
     }
-
-    private static final String quiz1 =
-            "{\n" +
-                    "  \"title\": \"The Java Logo\", \n" +
-                    "  \"text\": \"What is depicted on the Java logo?\",\n" +
-                    "  \"options\": [\"Robot\",\"Tea leaf\",\"Cup of coffee\",\"Bug\"],\n" +
-                    "  \"answer\": [2]\n" +
-                    "}";
-
     private static final String quiz2 =
             "{\n" +
                     "  \"title\": \"The Ultimate Question\",\n" +
@@ -47,7 +46,6 @@ public class WebQuizEngineTest extends SpringTest {
                     "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"],\n" +
                     "  \"answer\": [1]\n" +
                     "}";
-
     private static final String quiz3 =
             "{\n" +
                     "  \"title\": \"Math1\",\n" +
@@ -55,7 +53,6 @@ public class WebQuizEngineTest extends SpringTest {
                     "  \"options\": [\"1+3\",\"2+2\",\"8-1\",\"1+5\"],\n" +
                     "  \"answer\": [0,1]\n" +
                     "}";
-
     private static final String quiz4 =
             "{\n" +
                     "  \"title\": \"Math2\",\n" +
@@ -63,7 +60,6 @@ public class WebQuizEngineTest extends SpringTest {
                     "  \"options\": [\"1+1\",\"2+2\",\"8-1\",\"5-1\"],\n" +
                     "  \"answer\": [1,3]\n" +
                     "}";
-
     private static final String quiz5 =
             "{\n" +
                     "  \"title\": \"Math3\",\n" +
@@ -71,14 +67,12 @@ public class WebQuizEngineTest extends SpringTest {
                     "  \"options\": [\"2*3\",\"5*8\",\"8*0\",\"1*5\"],\n" +
                     "  \"answer\": []\n" +
                     "}";
-
     private static final String quiz6 =
             "{\n" +
                     "  \"title\": \"Math4\",\n" +
                     "  \"text\": \"Which of the following is equal to 4?\",\n" +
                     "  \"options\": [\"2*3\",\"5*8\",\"8*0\",\"1*5\"]\n" +
                     "}";
-
     private static final String quiz7 =
             "{\n" +
                     "  \"title\": \"Math5\",\n" +
@@ -86,22 +80,18 @@ public class WebQuizEngineTest extends SpringTest {
                     "  \"options\": [\"2^2\",\"2+2\",\"2-2\",\"2*2\"],\n" +
                     "  \"answer\": [0,1,3]\n" +
                     "}";
-
     private static final String[] quizzes = new String[]{
             quiz1, quiz2, quiz3, quiz4, quiz5, quiz6, quiz7
     };
-
     private static final int[] quizIds = new int[]{
             0, 0, 0, 0, 0, 0, 0
     };
-
     private static final String error400noTitle =
             "{\n" +
                     "  \"text\": \"What is the answer to the Ultimate Question of Life, the Universe and Everything?\",\n" +
                     "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
                     "  \"answer\": [1]\n" +
                     "}";
-
     private static final String error400emptyTitle =
             "{\n" +
                     "  \"title\": \"\",\n" +
@@ -109,14 +99,12 @@ public class WebQuizEngineTest extends SpringTest {
                     "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
                     "  \"answer\": [1]\n" +
                     "}";
-
     private static final String error400noText =
             "{\n" +
                     "  \"title\": \"123123123\",\n" +
                     "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
                     "  \"answer\": [1]\n" +
                     "}";
-
     private static final String error400emptyText =
             "{\n" +
                     "  \"title\": \"The Ultimate Question\",\n" +
@@ -124,14 +112,12 @@ public class WebQuizEngineTest extends SpringTest {
                     "  \"options\": [\"Everything goes right\",\"42\",\"2+2=4\",\"11011100\"]\n" +
                     "  \"answer\": [1]\n" +
                     "}";
-
     private static final String error400noOptions =
             "{\n" +
                     "  \"title\": \"The Ultimate Question\",\n" +
                     "  \"text\": \"123123123\",\n" +
                     "  \"answer\": [1]\n" +
                     "}";
-
     private static final String error400emptyOptions =
             "{\n" +
                     "  \"title\": \"The Ultimate Question\",\n" +
@@ -139,7 +125,6 @@ public class WebQuizEngineTest extends SpringTest {
                     "  \"options\": [ ]\n" +
                     "  \"answer\": [ ]\n" +
                     "}";
-
     private static final String error400oneOption =
             "{\n" +
                     "  \"title\": \"The Ultimate Question\",\n" +
@@ -147,7 +132,6 @@ public class WebQuizEngineTest extends SpringTest {
                     "  \"options\": [\"Everything goes right\"]\n" +
                     "  \"answer\": [0]\n" +
                     "}";
-
     @DynamicTestingMethod
     DynamicTesting[] dt = new DynamicTesting[]{
             () -> testAllQuizzes(0),
@@ -173,6 +157,14 @@ public class WebQuizEngineTest extends SpringTest {
             () -> checkQuizSuccess(quizIds[1], "[1]", true),
             () -> checkQuizSuccess(quizIds[1], "[2]", false),
             () -> checkQuizSuccess(quizIds[1], "[3]", false),
+
+            () -> testAllQuizzes(2),
+            this::reloadServer,
+            () -> testAllQuizzes(2),
+            () -> checkQuizSuccess(quizIds[0], "[2]", true),
+            () -> checkQuizSuccess(quizIds[0], "[3]", false),
+            () -> checkQuizSuccess(quizIds[1], "[0]", false),
+            () -> checkQuizSuccess(quizIds[1], "[1]", true),
 
             () -> addIncorrectQuiz(error400noTitle),
             () -> addIncorrectQuiz(error400emptyTitle),
@@ -276,10 +268,18 @@ public class WebQuizEngineTest extends SpringTest {
             () -> checkQuizSuccess(quizIds[6], "[0,1,3]", true),
             () -> checkQuizSuccess(quizIds[6], "[1,2,3]", false),
             () -> checkQuizSuccess(quizIds[6], "[0,1,2,3]", false),
+
+            () -> testAllQuizzes(7),
+            this::reloadServer,
+            () -> testAllQuizzes(7),
+            () -> checkQuizSuccess(quizIds[5], "[]", true),
+            () -> checkQuizSuccess(quizIds[5], "[0]", false),
+            () -> checkQuizSuccess(quizIds[6], "[0,1,2]", false),
+            () -> checkQuizSuccess(quizIds[6], "[0,1,3]", true),
     };
 
-    private static JsonStringBuilder isNotBlankString() {
-        return isString(s -> !s.isBlank(), "should not be blank");
+    public WebQuizEngineTest() {
+        super("../quizdb.mv.db");
     }
 
     private CheckResult testCreateQuiz(int quizNum) {
@@ -293,9 +293,6 @@ public class WebQuizEngineTest extends SpringTest {
                             quizIds[quizNum] = i;
                             return true;
                         }))
-                        .value("title", isNotBlankString())
-                        .value("text", isNotBlankString())
-                        .value("options", isArray(4))
                         .anyOtherValues()
         );
 
@@ -303,7 +300,6 @@ public class WebQuizEngineTest extends SpringTest {
     }
 
     private CheckResult testQuizExists(int quizNum) {
-
         int quizId = quizIds[quizNum];
         String quiz = quizzes[quizNum];
 
@@ -345,6 +341,16 @@ public class WebQuizEngineTest extends SpringTest {
         return CheckResult.correct();
     }
 
+    private CheckResult testQuizNotExists(int quizNum) {
+        int quizId = quizIds[quizNum];
+
+        String url = "/api/quizzes/" + (quizId + 125);
+        HttpResponse resp = get(url).send();
+        checkStatusCode(resp, 404);
+
+        return CheckResult.correct();
+    }
+
     private CheckResult testAllQuizzes(int count) {
         String url = "/api/quizzes";
         HttpResponse resp = get(url).send();
@@ -353,16 +359,6 @@ public class WebQuizEngineTest extends SpringTest {
         expect(resp.getContent()).asJson().check(
                 isArray(count, isObject().anyOtherValues())
         );
-
-        return CheckResult.correct();
-    }
-
-    private CheckResult testQuizNotExists(int quizNum) {
-        int quizId = quizIds[quizNum];
-
-        String url = "/api/quizzes/" + (quizId + 125);
-        HttpResponse resp = get(url).send();
-        checkStatusCode(resp, 404);
 
         return CheckResult.correct();
     }
@@ -377,7 +373,7 @@ public class WebQuizEngineTest extends SpringTest {
         expect(resp.getContent()).asJson().check(
             isObject()
                 .value("success", shouldResponse)
-                    .value("feedback", isNotBlankString())
+                    .value("feedback", isString())
         );
 
         return CheckResult.correct();
@@ -387,6 +383,15 @@ public class WebQuizEngineTest extends SpringTest {
         String url = "/api/quizzes";
         HttpResponse resp = post(url, quiz).send();
         checkStatusCode(resp, 400);
+        return CheckResult.correct();
+    }
+
+    private CheckResult reloadServer() {
+        try {
+            reloadSpring();
+        } catch (Exception ex) {
+            throw new UnexpectedError(ex.getMessage());
+        }
         return CheckResult.correct();
     }
 }
