@@ -24,4 +24,8 @@ class QuizService(private val repository: QuizRepository) {
     fun answerQuiz(answer: List<Int>, quiz: Quiz): Boolean {
         return quiz.answer == answer
     }
+
+    fun deleteQuiz(id: Long) {
+        repository.deleteById(id)
+    }
 }

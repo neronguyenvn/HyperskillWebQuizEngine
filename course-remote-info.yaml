@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://hyperskill.org/api/projects/316/additional-files/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Mon, 07 Apr 2025 10:14:00 UTC"
+update_date: "Thu, 08 May 2025 04:36:24 UTC"
 stages:
   - id: 1773
     step: 24905
@@ -19,7 +19,7 @@ stages:
     is_completed: true
   - id: 1777
     step: 24909
-    is_completed: false
+    is_completed: true
   - id: 1778
     step: 24910
     is_completed: false
@@ -177,7 +177,7 @@ topics:
       theory_id: 10746
     - title: External resources
       theory_id: 6216
-    - title: Web development
+    - title: Introduction to Full-Stack development
       theory_id: 13931
     - title: Libraries
       theory_id: 8504

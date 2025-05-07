@@ -18,9 +18,10 @@ data class CreateQuizRequest(
     val answer: List<Int> = emptyList(),
 )
 
-fun CreateQuizRequest.asBusinessModel() = Quiz(
+fun CreateQuizRequest.asBusinessModel(authorEmail: String) = Quiz(
     title = title,
     text = text,
     options = options,
-    answer = answer
+    answer = answer,
+    authorEmail = authorEmail
 )

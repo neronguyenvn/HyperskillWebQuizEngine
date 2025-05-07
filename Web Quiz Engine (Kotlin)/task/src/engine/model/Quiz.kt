@@ -18,6 +18,9 @@ data class Quiz(
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     val answer: List<Int>,
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    val authorEmail: String? = null,
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
