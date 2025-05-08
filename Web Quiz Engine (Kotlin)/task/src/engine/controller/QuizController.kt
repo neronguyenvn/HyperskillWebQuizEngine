@@ -5,8 +5,10 @@ import engine.controller.model.CreateQuizRequest
 import engine.controller.model.Feedback
 import engine.controller.model.asBusinessModel
 import engine.model.Quiz
+import engine.model.asDto
 import engine.service.QuizService
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -28,8 +30,8 @@ class QuizController(private val service: QuizService) {
     }
 
     @GetMapping
-    fun getAllQuizzes(): ResponseEntity<List<Quiz>> {
-        val quizzes = service.getAllQuizzes()
+    fun getQuizzes(page: Int): ResponseEntity<Page<Quiz>> {
+        val quizzes = service.getQuizzes(page)
         return ResponseEntity.ok(quizzes)
     }
 
@@ -45,13 +47,19 @@ class QuizController(private val service: QuizService) {
     @PostMapping("/{id}/solve")
     fun answer(
         @PathVariable id: Long,
-        @RequestBody answer: AnswerQuizRequest
+        @RequestBody answer: AnswerQuizRequest,
+        @AuthenticationPrincipal user: UserDetails
     ): ResponseEntity<Any> {
         val quiz = service.getQuizById(id) ?: run {
             return ResponseEntity.notFound().build()
         }
 
-        val isCorrect = service.answerQuiz(answer.answer, quiz)
+        val isCorrect = service.answerQuiz(
+            answer = answer.answer,
+            quiz = quiz,
+            answererEmail = user.username
+        )
+
         val feedback =
             if (isCorrect) Feedback.trueAnswer
             else Feedback.wrongAnswer
@@ -74,5 +82,20 @@ class QuizController(private val service: QuizService) {
 
         service.deleteQuiz(id)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+    }
+
+    @GetMapping("/completed")
+    fun getQuizCompletions(
+        page: Int,
+        @AuthenticationPrincipal user: UserDetails
+    ): ResponseEntity<Any> {
+        val quizCompletions = service
+            .getQuizCompletionsByAnswererEmail(
+                email = user.username,
+                page = page
+            )
+            .map { it.asDto() }
+
+        return ResponseEntity.ok(quizCompletions)
     }
 }

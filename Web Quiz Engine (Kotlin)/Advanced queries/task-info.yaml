@@ -12,6 +12,58 @@ files:
   - name: test/WebQuizEngineTest.java
     visible: false
     learner_created: false
+  - name: src/engine/controller/UserController.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/controller/model/RegisterUserRequest.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/model/User.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/repository/QuizRepository.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/service/UserService.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/controller/QuizController.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/service/QuizService.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/service/UserDetailsServiceImpl.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/model/Quiz.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/controller/model/CreateQuizRequest.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/controller/model/AnswerQuizRequest.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/repository/UserRepository.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/controller/model/Feedback.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/model/QuizCompletion.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/repository/QuizCompletionRepository.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/controller/model/QuizCompletionDto.kt
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/24910#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Thu, 08 May 2025 14:57:45 UTC"
 record: -1
