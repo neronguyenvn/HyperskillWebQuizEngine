@@ -27,7 +27,7 @@ class UserController(
         val user = User(
             email = request.email,
             password = passwordEncoder.encode(request.password),
-            role = "USER"
+            authority = "ROLE_USER"
         )
 
         userService.createUser(user)

@@ -7,6 +7,8 @@ import jakarta.persistence.Id
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
+private typealias FrameworkUser = org.springframework.security.core.userdetails.User
+
 @Entity(name = "users")
 data class User(
 
@@ -14,14 +16,14 @@ data class User(
 
     val password: String,
 
-    val role: String,
+    val authority: String,
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
 )
 
-// TODO
-fun User.asUserDetails(): UserDetails = org.springframework.security.core.userdetails.User(
-    email, password, listOf(SimpleGrantedAuthority("ROLE_$role"))
+fun User.asUserDetails(): UserDetails = FrameworkUser(
+    email, password,
+    listOf(SimpleGrantedAuthority(authority))
 )
