@@ -15,7 +15,7 @@ files:
   - name: src/engine/controller/UserController.kt
     visible: true
     learner_created: true
-  - name: src/engine/controller/model/RegisterUserRequest.kt
+  - name: src/engine/controller/model/request/RegisterUserRequest.kt
     visible: true
     learner_created: true
   - name: src/engine/model/User.kt
@@ -39,16 +39,16 @@ files:
   - name: src/engine/model/Quiz.kt
     visible: true
     learner_created: true
-  - name: src/engine/controller/model/CreateQuizRequest.kt
+  - name: src/engine/controller/model/request/CreateQuizRequest.kt
     visible: true
     learner_created: true
-  - name: src/engine/controller/model/AnswerQuizRequest.kt
+  - name: src/engine/controller/model/request/AnswerQuizRequest.kt
     visible: true
     learner_created: true
   - name: src/engine/repository/UserRepository.kt
     visible: true
     learner_created: true
-  - name: src/engine/controller/model/Feedback.kt
+  - name: src/engine/controller/model/response/FeedbackResponse.kt
     visible: true
     learner_created: true
   - name: src/engine/model/QuizCompletion.kt
@@ -57,7 +57,10 @@ files:
   - name: src/engine/repository/QuizCompletionRepository.kt
     visible: true
     learner_created: true
-  - name: src/engine/controller/model/QuizCompletionDto.kt
+  - name: src/engine/controller/model/response/QuizCompletionResponse.kt
+    visible: true
+    learner_created: true
+  - name: src/engine/controller/model/response/QuizResponse.kt
     visible: true
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/24910#comment
@@ -65,5 +68,5 @@ status: Solved
 feedback:
   message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
     to continue learning.
-  time: "Thu, 08 May 2025 14:57:45 UTC"
-record: -1
+  time: "Fri, 09 May 2025 16:51:14 UTC"
+record: 4

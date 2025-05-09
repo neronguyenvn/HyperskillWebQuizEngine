@@ -1,11 +1,12 @@
 package engine.controller
 
-import engine.controller.model.AnswerQuizRequest
-import engine.controller.model.CreateQuizRequest
-import engine.controller.model.Feedback
-import engine.controller.model.asBusinessModel
-import engine.model.Quiz
-import engine.model.asDto
+import engine.controller.model.request.AnswerQuizRequest
+import engine.controller.model.request.CreateQuizRequest
+import engine.controller.model.request.asBusinessModel
+import engine.controller.model.response.FeedbackResponse
+import engine.controller.model.response.QuizCompletionResponse
+import engine.controller.model.response.QuizResponse
+import engine.model.asResponseModel
 import engine.service.QuizService
 import jakarta.validation.Valid
 import org.springframework.data.domain.Page
@@ -23,25 +24,25 @@ class QuizController(private val service: QuizService) {
     fun createQuiz(
         @RequestBody @Valid request: CreateQuizRequest,
         @AuthenticationPrincipal user: UserDetails
-    ): ResponseEntity<Quiz> {
+    ): ResponseEntity<QuizResponse> {
         val quiz = request.asBusinessModel(user.username)
-        val createdQuiz = service.createQuiz(quiz)
+        val createdQuiz = service.createQuiz(quiz).asResponseModel()
         return ResponseEntity.ok(createdQuiz)
     }
 
     @GetMapping
-    fun getQuizzes(page: Int): ResponseEntity<Page<Quiz>> {
+    fun getQuizzes(page: Int): ResponseEntity<Page<QuizResponse>> {
         val quizzes = service.getQuizzes(page)
-        return ResponseEntity.ok(quizzes)
+        return ResponseEntity.ok(quizzes.map { it.asResponseModel() })
     }
 
     @GetMapping("/{id}")
-    fun getQuizById(@PathVariable id: Long): ResponseEntity<Any> {
+    fun getQuizById(@PathVariable id: Long): ResponseEntity<QuizResponse> {
         val quiz = service.getQuizById(id) ?: run {
             return ResponseEntity.notFound().build()
         }
 
-        return ResponseEntity.ok(quiz)
+        return ResponseEntity.ok(quiz.asResponseModel())
     }
 
     @PostMapping("/{id}/solve")
@@ -49,7 +50,7 @@ class QuizController(private val service: QuizService) {
         @PathVariable id: Long,
         @RequestBody answer: AnswerQuizRequest,
         @AuthenticationPrincipal user: UserDetails
-    ): ResponseEntity<Any> {
+    ): ResponseEntity<FeedbackResponse> {
         val quiz = service.getQuizById(id) ?: run {
             return ResponseEntity.notFound().build()
         }
@@ -61,8 +62,8 @@ class QuizController(private val service: QuizService) {
         )
 
         val feedback =
-            if (isCorrect) Feedback.trueAnswer
-            else Feedback.wrongAnswer
+            if (isCorrect) FeedbackResponse.trueAnswer
+            else FeedbackResponse.wrongAnswer
 
         return ResponseEntity.ok(feedback)
     }
@@ -71,7 +72,7 @@ class QuizController(private val service: QuizService) {
     fun deleteQuiz(
         @PathVariable id: Long,
         @AuthenticationPrincipal user: UserDetails
-    ): ResponseEntity<Any> {
+    ): ResponseEntity<HttpStatus> {
         val quiz = service.getQuizById(id) ?: run {
             return ResponseEntity.notFound().build()
         }
@@ -88,13 +89,13 @@ class QuizController(private val service: QuizService) {
     fun getQuizCompletions(
         page: Int,
         @AuthenticationPrincipal user: UserDetails
-    ): ResponseEntity<Any> {
+    ): ResponseEntity<Page<QuizCompletionResponse>> {
         val quizCompletions = service
             .getQuizCompletionsByAnswererEmail(
                 email = user.username,
                 page = page
             )
-            .map { it.asDto() }
+            .map { it.asResponseModel() }
 
         return ResponseEntity.ok(quizCompletions)
     }

@@ -1,6 +1,6 @@
 package engine.model
 
-import engine.controller.model.QuizCompletionDto
+import engine.controller.model.response.QuizCompletionResponse
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -21,7 +21,7 @@ data class QuizCompletion(
     val completionId: Long? = null,
 )
 
-fun QuizCompletion.asDto() = QuizCompletionDto(
+fun QuizCompletion.asResponseModel() = QuizCompletionResponse(
     id = quizId,
     completedAt = completedAt.toString()
 )

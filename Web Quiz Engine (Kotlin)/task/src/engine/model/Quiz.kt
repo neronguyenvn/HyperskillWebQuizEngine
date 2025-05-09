@@ -1,6 +1,7 @@
 package engine.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import engine.controller.model.response.QuizResponse
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -24,4 +25,11 @@ data class Quiz(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
+)
+
+fun Quiz.asResponseModel() = QuizResponse(
+    title = title,
+    text = text,
+    options = options,
+    id = id
 )

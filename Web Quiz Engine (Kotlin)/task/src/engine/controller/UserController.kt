@@ -1,6 +1,6 @@
 package engine.controller
 
-import engine.controller.model.RegisterUserRequest
+import engine.controller.model.request.RegisterUserRequest
 import engine.model.User
 import engine.service.UserService
 import jakarta.validation.Valid

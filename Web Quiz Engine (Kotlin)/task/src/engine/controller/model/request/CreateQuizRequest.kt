@@ -1,4 +1,4 @@
-package engine.controller.model
+package engine.controller.model.request
 
 import engine.model.Quiz
 import jakarta.validation.constraints.NotBlank

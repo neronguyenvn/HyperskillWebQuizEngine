@@ -1,4 +1,4 @@
-package engine.controller.model
+package engine.controller.model.request
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.Size
