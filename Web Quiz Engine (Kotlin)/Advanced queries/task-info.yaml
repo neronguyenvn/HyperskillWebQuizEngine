@@ -63,10 +63,13 @@ files:
   - name: src/engine/controller/model/response/QuizResponse.kt
     visible: true
     learner_created: true
+  - name: src/engine/controller/advice/GlobalExceptionHandler.kt
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/24910#comment
 status: Solved
 feedback:
   message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
     to continue learning.
-  time: "Fri, 09 May 2025 16:51:14 UTC"
+  time: "Fri, 09 May 2025 16:57:46 UTC"
 record: 4
